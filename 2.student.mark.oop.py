@@ -51,81 +51,71 @@ class Course:
         self.name = input("Input courses name: ")
     def list(self):
         print(f"Course: ID: {self.id} | Name: {self.name}")
-    
     def inputMark(self, students):
-        print(f"===Input mark for course name: {self.name}===")
+        print(f"===Input mark for course name: {self.name} ===")
+
         for stu in students:
-            mark = float(input(f"Mark for {stu.name} ({stu.id}): "))
+            mark = float(input(f"mark for student {stu.name}, id : {stu.id}: "))
             self.marks[stu.id] = mark
 
-    def show_marks(self, students):
-        print(f"\nMarks for course {self.name}:")
+    def listMark(self, students):
+        print(f"list mark for course: {self.name}")
         for stu in students:
-            mark = self.marks.get(stu.id, "N/A")
+            mark = self.marks.get(stu.id)
             print(f"{stu.name} ({stu.id}): {mark}")
 
-
-class SchoolManager:
+class schoolManeger:
     def __init__(self):
         self.students = []
         self.courses = []
+    
 
-
-    def input_students(self):
+    def input_student(self):
         n = int(input("Number of students: "))
         for _ in range(n):
             s = Student()
             s.input()
             self.students.append(s)
-
-    def input_courses(self):
+    def input_course(self):
         n = int(input("Number of courses: "))
         for _ in range(n):
             c = Course()
             c.input()
             self.courses.append(c)
-
-    def select_course_and_input_marks(self):
-        print("\nSelect a course:")
-        for i, c in enumerate(self.courses):
+    def inputMark(self):
+        print("\nSelect a course:") 
+        for i , c in enumerate(self.courses):
             print(f"{i+1}. {c.name}")
         idx = int(input("Select course index: ")) - 1
         course = self.courses[idx]
         course.inputMark(self.students)
 
-
-    def list_courses(self):
-        print("\n--- Course List ---")
-        for c in self.courses:
-            c.list()
-
-    def list_students(self):
-        print("\n--- Student List ---")
+    def listStudent(self):
+        print("==============Students===============")
         for s in self.students:
             s.list()
-
-    def show_marks_for_course(self):
-        print("\nSelect a course to show marks:")
-        for i, c in enumerate(self.courses):
+    def listCourse(self):
+        print("===============Courses===============")
+        for c in self.courses:
+            c.list()
+    def listMark(self):
+        print("================Mark=================")
+        for i , c in enumerate(self.courses):
             print(f"{i+1}. {c.name}")
         idx = int(input("Select course index: ")) - 1
         course = self.courses[idx]
-        course.show_marks(self.students)
-
-
+        course.listMark(self.students)
 
 def main():
-    sm = SchoolManager()
-
+    sm = schoolManeger()
     print("=== INPUT PHASE ===")
-    sm.input_students()
-    sm.input_courses()
-    sm.select_course_and_input_marks()
-
+    sm.input_student()
+    sm.input_course()
+    sm.inputMark()
     print("\n=== LISTING PHASE ===")
-    sm.list_students()
-    sm.list_courses()
-    sm.show_marks_for_course()
+    sm.listStudent()
+    sm.listCourse()
+    sm.listMark()
 
 
 if __name__ == "__main__":
